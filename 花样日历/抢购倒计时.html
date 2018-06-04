@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input class = "text" type="text" value="2018.04.11.16:00:00">
+    <button class = "btn">开始计时</button>
+    <p>还剩：<strong class= "str"></strong></p>
+
+    <script>
+        let text = document.querySelector('.text');
+        let btn = document.querySelector('.btn');
+        let str = document.querySelector('.str');
+        let timer = null;
+       
+        btn.onclick = function(){
+            
+            clearTimeout(timer);
+
+            let val = text.value;
+            let f = new Date(val);
+            
+            move();
+            timer = setInterval(move,1000);
+            function move(){
+                //定义现在的时间
+                let o = new Date();
+                //定义相差时间 毫秒转化秒
+                let t = Math.floor(f - o)/1000;
+                if(t<0){
+                    clearInterval(timer);
+                    str.innerHTML = top(0)+'天'+top(0)+'时'+top(0)+'分'+top(0)+'秒';
+                    return;
+                }
+                //定义相差天数
+                let iDay = Math.floor(t/86400);
+                //定义相差小时
+                let iH = Math.floor(t%86400/3600);
+                //定义相差分钟
+                let iM = Math.floor(t%86400%3600/60);
+                //定义相差秒数
+                let iS = Math.floor(t%86400%3600%60);
+                //拼合时间
+                str.innerHTML = top(iDay)+'天'+top(iH)+'时'+top(iM)+'分'+top(iS)+'秒';
+
+            }
+            function top(n){
+                return n<10?'0'+n:''+n;
+            }
+        }
+    
+    </script>
+</body>
+</html>

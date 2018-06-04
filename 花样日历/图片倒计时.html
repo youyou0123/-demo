@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #box{
+        width: 600px;
+        height: 400px;
+        background:#000;
+    }
+    </style>
+</head>
+<body>
+    <div id = "box">
+        <div id="div"></div>
+
+        <div id="div2">
+            <img src="img/0.png" />
+            <img src="img/0.png" />
+            <img src="img/second1.png" />
+            <img src="img/0.png" />
+            <img src="img/0.png" />
+            <img src="img/second1.png" />
+            <img src="img/0.png" />
+            <img src="img/0.png" />
+        </div>
+    </div>
+
+    <script>
+       //获取元素
+       const div2 = document.getElementById("div2")
+       const imgs = div2.getElementsByTagName("img")
+
+       //获取时间
+       let d = new Date();
+       let H = d.getHours();
+       let M = d.getMinutes();
+       let S = d.getSeconds();
+        //组合时间
+        let str = H +':' + M + ':'+ S;
+        //循环图片
+        for(let i = 0; i < str.length; i++){
+            console.log(i)
+        }
+
+    //    console.log(str)
+    </script>
+
+</body>
+
+</html>
