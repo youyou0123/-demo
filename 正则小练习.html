@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #contain {
+            width: 400px;
+            height: 400px;
+            border: 1px solid yellowgreen;
+            border-radius: 20px;
+            margin: 20px auto;
+            padding: 60px 30px 30px 30px;
+            box-sizing: border-box;
+        }
+
+        #contain div {
+            margin-bottom: 30px;
+        }
+
+        #contain div span {
+            font-size: 20px;
+            color: #555;
+            width: 80px;
+            display: inline-block;
+        }
+
+        #contain div input {
+            width: 200px;
+            height: 30px;
+            outline: none;
+            padding-left: 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid yellowgreen;
+        }
+
+        #btn {
+            display: block;
+            outline: none;
+            width: 100px;
+            height: 40px;
+            border: 1px solid yellowgreen;
+            background-color: #fff;
+            border-radius: 10px;
+            font-size: 20px;
+            margin: 20px auto;
+            cursor: no-drop;
+            color: #555;
+
+        }
+
+        #contain .ok {
+            border-color: yellowgreen;
+        }
+
+        #contain .error {
+            border-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="contain">
+        <div id="qq">
+            <span>QQ：</span>
+            <input type="text" name="qq" placeholder="请输入QQ" class="">
+        </div>
+        <div id="email">
+            <span>Email：</span>
+            <input type="text" name="email" placeholder="请输入邮箱">
+        </div>
+        <div id="mobile">
+            <span>Mobile：</span>
+            <input type="text" name="phone" placeholder="请输入手机号码">
+        </div>
+        <div id="date">
+            <span>Date：</span>
+            <input type="text" name="birth" placeholder="请输入生日">
+        </div>
+
+        <p>
+            <input type="submit" value="注册" id="btn">
+        </p>
+
+    </div>
+    <script>
+        const qq = document.getElementById('qq').getElementsByTagName('input')[0];
+        const email = document.getElementById('email').getElementsByTagName('input')[0];
+        const mobile = document.getElementById('mobile').getElementsByTagName('input')[0];
+        const date = document.getElementById('date').getElementsByTagName('input')[0];
+        let onff = false, onff2 = false, onff3 = false, onff4 = false
+
+        qq.onkeyup = function () {
+            let va = qq.value;
+            onff = /^[1-9]\d{4,11}$/.test(va);
+            qq.className = onff ? 'ok' : 'error'
+            s()
+        }
+        email.onkeyup = function () {
+            let va2 = email.value;
+            onff2 = /(^[1-9]\d{4,11}|^[A-Za-z]\w{5,17})@[0-9a-z]{2,8}(\.com|\.cn|\.net){1,2}$/.test(va2)
+            email.className = onff2 ? 'ok' : 'error'
+            s()
+        }
+
+        mobile.onkeyup = function () {
+            let va3 = mobile.value;
+            onff3 = /^1\d{1,10}$/.test(va3)
+            mobile.className = onff3 ? 'ok' : 'error'
+            s()
+        }
+
+
+        let year = []
+        date.onkeyup = function () {
+
+            let va4 = date.value;
+            // var checkBirth = function (val) {
+            //     var pattern = /^((?:19[2-9]\d{1})|(?:20(?:(?:0[0-9])|(?:1[0-8]))))((?:0?[1-9])|(?:1[0-2]))((?:0?[1-9])|(?:[1-2][0-9])|30|31)$/;
+            //     var result = val.match(pattern);
+
+            //     if (result != null) {
+            //         var iYear = parseInt(result[1]);
+            //         var month = result[2];
+            //         var date = result[3];
+
+            //         if (/^((0?[469])|11)$/.test(month) && date == '31') {
+            //             return false;
+            //         } else if (parseInt(month) == 2) {
+            //             if ((iYear % 4 == 0 && iYear % 100 != 0) || (iYear % 400 == 0)) {
+            //                 if (date == '29') {
+            //                     return true;
+            //                 }
+            //             }
+            //             if (parseInt(date) > 28) {
+            //                 return false;
+            //             }
+            //         }
+            //         return true;
+            //     }
+            //     return false;
+            // }
+            
+      
+            let arr= /^\d{8,8}$/.test(va4)
+            if (arr) {
+               
+                let year=va4.slice(0,4)
+                  let Month= va4.slice(4, 6)
+                  let date = va4.slice(6, 8)         
+             let new2=new Date(year + ',' + Month + ',' + date)
+                let n3 = new2.getDate()
+                 onff4= n3 == date? true : false
+            }else{
+                onff4=false
+            }
+            date.className = onff4 ? 'ok' : 'error'
+            s()
+
+        }
+        function s() {
+            if (onff & onff2 & onff3 & onff4) {
+
+                btn.style.cursor = 'pointer';
+                btn.onclick = function () {
+                    location.href = 'http://www.baidu.com';
+                }
+
+            } else {
+                btn.style.cursor = ' no-drop';
+            }
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
