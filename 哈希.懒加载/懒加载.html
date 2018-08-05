@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        margin:0;
+        padding:0;
+        list-style:none;
+    }
+    ul{
+        width: 150px;
+        overflow: hidden;
+    }
+    li{
+        width: 45px;
+        height: 100px;
+        float:left;
+
+    }
+    img{
+        width: 45px;
+        height: 100px;
+        opacity:0;
+        transition:1.2s;
+    }
+    </style>
+</head>
+<body>
+    <ul id = "ul">
+        <!-- <li>
+            <img src = "img/0.png" >
+        </li>
+        <li>
+            <img src = "img/1.png" >
+        </li>
+        <li>
+            <img src = "img/2.png" >
+        </li> -->
+    </ul>
+    <!-- 
+        可视区域距离
+        滚动条的Y轴距离
+        每个图片的绝对位置
+
+     -->
+    <script>
+        
+        let html = '';
+        //循环图片，设置不超过99张
+        for(let i = 0; i < 100; i++){
+            html += `<li>
+                <img index = "./img/${i%9}.png" alt = "">
+            </li>`
+        }
+        //将循环结果放入ul中
+        ul.innerHTML = html;
+    
+        //获取元素  li 和 imgs 
+        let lis = document.getElementsByTagName('li');
+        let imgs = document.getElementsByTagName('img');
+        
+        //布局转换
+        //循环所有li的图片,获取所有图片的顶部、左侧的绝对位置
+        for(let i = 0;i <lis.length; i++){
+            //获取li的图片顶端的绝对位置，加上单位赋值给lis的i
+            lis[i].style.top = lis[i].offsetTop + 'px';
+             //获取li的图片左侧的绝对位置，加上单位赋值给lis的i
+            lis[i].style.left = lis[i].offsetLeft + 'px';
+            
+        }
+        //循环所有li的图片，
+        for(let i = 0;i <lis.length; i++){
+            //为li的图片设置绝对定位
+            lis[i].style.position = 'absolute';
+            
+        }
+        //获取可视区的高度
+        let iH = window.innerHeight;
+        
+        //滚动监听，触发时执行函数
+        window.onscroll = function(){
+            //获取滚动Y轴的滚动距离   赋值bottom
+            //底边 = 可视区的高度 + 滚动条的高度
+            let bottom = iH + window.pageYOffset;
+            
+            //设置循环，循环每个li
+            for(let i = 0; i < lis.length; i++){
+                //判断每个图片的最顶端是否进入可视区域的最下端
+                if(parseFloat(lis[i].style.top) <= bottom){
+                   
+                    //判断是否有行间属性
+                    if(imgs[i].getAttribute('index')){
+                        //获取lis的行间属性
+                        imgs[i].setAttribute('src',imgs[i].getAttribute('index'));
+                        //删除行间属性
+                        imgs[i].removeAttribute('index');
+                        //设置定时器   如果图片顶部进入可视区域下端，延迟500毫秒执行定时器
+                        setTimeout(function(){
+                            //图片透明度显示为1
+                            imgs[i].style.opacity = 1;
+                        },500)
+                    }
+                }
+            }
+
+        }
+    
+    
+    </script>
+
+
+
+
+
+</body>
+</html>

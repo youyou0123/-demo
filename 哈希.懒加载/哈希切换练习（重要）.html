@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+ <!-- 
+        1.点击按钮时候设置图片向下切换
+        2.获取地址栏地址
+        3.在不刷新的情况下切换图片，使图片和地址栏相对应
+        4.处理分享时候链接打开的地址与图片相对应
+
+     -->
+<body>
+    <img  id = "img">
+    <button id = "b1">上一页</button>
+    <button id = "b2">下一页</button>
+   
+    <script>
+        let num = 0;
+
+         //绑定点击事件
+        b1.onclick = function(){
+            //自增  用来让图片自动切换下一张
+            num--;
+            //判断   处理图片过界
+            if(num<0){
+                num = 9;
+            }
+            //拼接图片地址  达到自动切换效果
+            img.src = 'img/'+num+'.png';
+            //在不跳转页面不刷新的情况下获取动态的图片地址栏地址    
+            location.hash = 'page='+num;
+        }
+
+       
+        b2.onclick = function(){
+            //自增  用来让图片自动切换下一张
+            num++;
+            //判断   处理图片过界
+            if(num>9){
+                num = 0;
+            }
+            //拼接图片地址  达到自动切换效果
+            img.src = 'img/'+num+'.png';
+            //在不跳转页面不刷新的情况下获取动态的图片地址栏地址    
+            location.hash = 'page='+num;
+        }
+        //先调用一次保证页面出现时图片同时出现
+        hashFn();
+        //当哈希变动时触发此时间   处理图片与地址栏一一对应
+        window.onhashchange = hashFn;
+        //设置哈西时候地址栏变化
+        function hashFn(){
+            //获取hash的地址，并用等号截取，只显示【1】 // 如果查不到就等于0，继续往下走
+            let hash = location.hash.split('=')[1] || 0;
+            //将上一步获取到的字符串类型转化为数字
+            // hash = hash *1;
+            //将 hash *1 赋值给num,用以处理分享链接打开后图片和地址同步问题
+            num = hash*1;
+            img.src = 'img/'+hash+'.png';
+            console.log(num)
+        }
+      
+    
+    </script>
+</body>
+</html>

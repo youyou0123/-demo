@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<!-- 
+        1.点击按钮时候设置图片向下切换
+        2.获取地址栏地址
+        3.在不刷新的情况下切换图片，使图片和地址栏相对应
+        4.处理分享时候链接打开的地址与图片相对应
+
+     -->
+<body>
+    <img  id = "img">
+    <button id = "b1">上一页</button>
+    <button id = "b2">下一页</button>
+    <script>
+            //获取元素
+            //id可以不用获取直接使用
+            let num = 0;
+            //创建点击事件
+            b2.onclick = function(){
+                 //点击按钮时候图片向下切换
+                 num++;
+                // 判断  处理过界问题
+                if(num > 9){
+                    num = 0 ;
+                }
+
+               
+                img.src = 'img/'+num+'.png';
+                //获取地址栏地址
+                location.hash = 'page='+num;
+
+            }
+            hashFn();
+            window.onhashchange = hashFn;
+            function hashFn(){
+                let hash = location.hash.split('=')[1] || 0;
+                //将上一步获取到的字符串转化为数字
+                // hash = hash *1;
+                
+                num = hash *1;
+                img.src = 'img/'+hash+'.png';
+                
+                console.log(hash)
+            }
+            
+            
+    </script>
+
+
+</body>
+</html>

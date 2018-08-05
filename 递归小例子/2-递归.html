@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/*
+			 	递归
+			 		函数自己调用自己
+			 	注意:
+			 		别写成死循环
+			 		
+			 		1.有条件的调用自己
+			 		2.有终止条件
+			 		
+			 		//  规则相同，重复做同一件事时使用
+			 		
+			 * */
+			var n = 0;
+			/*function fn(){
+				n++;
+				console.log(n)
+				if(n<10){
+					fn();
+				}
+			}*/
+			function fn(){
+				n++;
+				console.log(n)
+				if(n==10){
+					return;
+				}
+				return fn();
+			}
+			fn()
+		</script>
+	</body>
+</html>

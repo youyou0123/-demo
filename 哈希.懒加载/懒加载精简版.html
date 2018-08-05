@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+            list-style: none;
+        }
+        ul{
+            width:150px;
+            /* border: 1px solid #000; */
+            overflow: hidden;
+        }
+        li{
+            width:45px;
+            height: 200px;
+            float: left;
+        }
+        img{
+            width:45px;
+            height:200px;
+            opacity: 0;
+            transition:1.2s;
+        }
+    
+    </style>
+</head>
+<body>
+    <ul id="ul">
+            <!-- <li>
+                <img src = "img/0.png" >
+            </li>
+            <li>
+                <img src = "img/0.png" >
+            </li>
+            <li>
+                <img src = "img/0.png" >
+            </li> -->
+        </ul>
+        <script>
+
+            let html = '';
+            //设置循环  循环li的图片，小于100，依次往下
+            for(let i = 0; i < 100 ; i ++){
+                html += `<li>
+                    <img index = "img/${i%9}.png";
+                </li>`
+            }
+            //将html 放在ul中
+            ul.innerHTML = html;
+
+            let lis = document.getElementsByTagName('li');
+            
+            let imgs = document.getElementsByTagName('img');
+            //获取可视区高度
+            let iH = window.innerHeight;
+            //点击窗口的时候触发事件
+            window.onscroll = function(){
+                //设置循环，循环每个li的i
+                for(let i=0;i<lis.length; i++){
+                    //判断一下li的图片对顶端是不是进入可视区
+                    if(lis[i].getBoundingClientRect().top <= iH){
+                        //获取行间属性  判断是否有这个属性
+                        if(imgs[i].getAttribute('index')){
+                            //如果有，就获取图片
+                            imgs[i].setAttribute('src',imgs[i].getAttribute('index'));
+                            //删除行间属性
+                            imgs[i].removeAttribute('index');
+                            //设置透明度为1
+                            imgs[i].style.opacity = 1;
+                        }
+                    }
+                }
+
+            }
+        
+        </script>
+</body>
+</html>
